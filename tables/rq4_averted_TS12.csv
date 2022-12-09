@@ -1,0 +1,6 @@
+name,strategy_name,variant_scenario,total_doses_med,infections,hospitalisations,deaths,cost_per_hosp1,cost_per_hosp2,cost_per_hosp3,cost_per_death1,cost_per_death2,cost_per_death3
+rq4_lmic,"primary 10+, boost 60+ yearly",NA,79918,29,52,11,3074,30738,76844,14531,145305,363264
+rq4_lmic,"primary 10+, boost 40+ yearly",NA,256344,72,126,21,4069,40690,101724,24414,244137,610343
+rq4_lmic,"primary 10+, boost 10+ yearly",NA,672301,222,218,37,6168,61679,154197,36341,363406,908515
+rq4_lmic_drift,"primary 10+, boost 60+ yearly",omicron_vaccine_0,79918,27,103,16,1552,15518,38795,9990,99898,249744
+rq4_lmic_drift,"primary 10+, boost 10+ yearly",omicron_vaccine_0,672301,190,188,28,7152,71521,178803,48022,480215,1200538

@@ -1,5 +1,4 @@
 library(tidyverse)
-library(patchwork)
 library(dplyr)
 library(purrr)
 library(drjacoby)
@@ -8,7 +7,7 @@ library(drjacoby)
 ##### LOAD THE PARAMETERS 
 ##################################
 
-load("data_chains/UKHSA_v6_65+_20220702_AZPD2=FALSE_SB=FALSE_NewDecay=TRUE_AddBst=FALSE_AltSev=FALSE_mcmc_chain.Rdata")  
+load("../data_chains/UKHSA_v6_65+_20220702_AZPD2=FALSE_SB=FALSE_NewDecay=TRUE_AddBst=FALSE_AltSev=FALSE_mcmc_chain.Rdata")  
 
 ###################################
 ## Calculate parameter estimates and bounds of transformed parameters from 10,000 MCMC samples

@@ -1,0 +1,19 @@
+name,strategy_name,variant_scenario,total_doses_med,infections,hospitalisations,deaths,cost_per_hosp1,cost_per_hosp2,cost_per_hosp3,cost_per_death1,cost_per_death2,cost_per_death3
+rq1_hic_bv,"primary 10+, boost 75+ yearly",NA,210015,73,1008,312,417,4167,10417,1346,13462,33656
+rq1_hic_bv,"primary 10+, boost 75+ 6 monthly",NA,350025,88,1134,350,617,6173,15433,2000,20001,50004
+rq1_hic_bv,"primary 10+, boost 60+ yearly",NA,675570,274,1796,424,752,7523,18808,3187,31867,79666
+rq1_hic_bv,"primary 10+, boost 60+ 6 monthly",NA,1125950,332,2116,491,1064,10642,26606,4586,45864,114659
+rq1_hic_bv,"primary 10+, boost 10+ yearly",NA,1337184,829,2496,524,1071,10715,26787,5104,51038,127594
+rq1_hic_newvariant,"primary 10+, boost 60+ yearly",increased severity and immune escape,675570,272,5988,2012,226,2256,5641,672,6715,16789
+rq1_hic_drift,"primary 10+, boost 60+ yearly",omicron_vaccine_1,675570,346,2278,524,593,5931,14828,2579,25785,64463
+rq1_hic_newvariant,"primary 10+, boost 10+ yearly",increased severity and immune escape,1337184,763,7661,2446,349,3491,8727,1093,10934,27334
+rq1_hic_drift,"primary 10+, boost 10+ yearly",omicron_vaccine_1,1337184,942,2959,621,904,9038,22595,4307,43066,107664
+rq3_hic_bv,"primary 10+, boost 75+ yearly",NA,210015,5,1177,381,357,3569,8922,1102,11024,27561
+rq3_hic_bv,"primary 10+, boost 75+ 6 monthly",NA,350025,55,1373,430,510,5099,12747,1628,16280,40701
+rq3_hic_bv,"primary 10+, boost 60+ yearly",NA,675570,249,2236,540,604,6043,15107,2502,25021,62553
+rq3_hic_bv,"primary 10+, boost 60+ 6 monthly",NA,1125950,296,2606,592,864,8641,21603,3804,38039,95097
+rq3_hic_bv,"primary 10+, boost 10+ yearly",NA,1337184,802,3026,651,884,8838,22095,4108,41081,102702
+rq3_hic_newvariant,"primary 10+, boost 60+ yearly",increased severity and immune escape,675570,292,7496,2548,180,1802,4506,530,5303,13257
+rq3_hic_drift,"primary 10+, boost 60+ yearly",omicron_vaccine_1,675570,341,2676,634,505,5049,12623,2131,21311,53278
+rq3_hic_newvariant,"primary 10+, boost 10+ yearly",increased severity and immune escape,1337184,706,9257,3013,289,2889,7223,888,8876,22190
+rq3_hic_drift,"primary 10+, boost 10+ yearly",omicron_vaccine_1,1337184,1032,3658,732,731,7311,18278,3654,36535,91338
