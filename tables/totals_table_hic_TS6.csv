@@ -1,0 +1,21 @@
+name,strategy_name,total_doses_med,infections,hospitalisations,deaths,variant_scenario
+rq1_hic_bv,"primary 10+, 3 doses only",2014833,2486,5378,1062,NA
+rq1_hic_bv,"primary 10+, boost 75+ yearly",2224848,2412,4370,750,NA
+rq1_hic_bv,"primary 10+, boost 75+ 6 monthly",2364858,2398,4244,712,NA
+rq1_hic_bv,"primary 10+, boost 60+ yearly",2690403,2212,3582,638,NA
+rq1_hic_bv,"primary 10+, boost 60+ 6 monthly",3140783,2154,3262,571,NA
+rq1_hic_bv,"primary 10+, boost 10+ yearly",3352017,1657,2882,538,NA
+rq1_hic_newvariant,"primary 10+, boost 60+ yearly",2690403,3013,11531,3163,increased severity and immune escape
+rq1_hic_drift,"primary 10+, boost 60+ yearly",2690403,3979,7127,1354,"primary 10+, boost 60+ yearly_0"
+rq1_hic_newvariant,"primary 10+, boost 10+ yearly",3352017,2522,9858,2729,increased severity and immune escape
+rq1_hic_drift,"primary 10+, boost 10+ yearly",3352017,3166,5141,966,"primary 10+, boost 10+ yearly_1"
+rq3_hic_bv,"primary 10+, 3 doses only",2014833,2918,8776,1706,NA
+rq3_hic_bv,"primary 10+, boost 75+ yearly",2224848,2914,7599,1325,NA
+rq3_hic_bv,"primary 10+, boost 75+ 6 monthly",2364858,2864,7403,1276,NA
+rq3_hic_bv,"primary 10+, boost 60+ yearly",2690403,2669,6540,1166,NA
+rq3_hic_bv,"primary 10+, boost 60+ 6 monthly",3140783,2622,6170,1114,NA
+rq3_hic_bv,"primary 10+, boost 10+ yearly",3352017,2117,5750,1055,NA
+rq3_hic_newvariant,"primary 10+, boost 60+ yearly",2690403,3342,15567,4122,increased severity and immune escape
+rq3_hic_drift,"primary 10+, boost 60+ yearly",2690403,4140,8882,1602,"primary 10+, boost 60+ yearly_1"
+rq3_hic_newvariant,"primary 10+, boost 10+ yearly",3352017,2928,13806,3657,increased severity and immune escape
+rq3_hic_drift,"primary 10+, boost 10+ yearly",3352017,3449,7900,1504,"primary 10+, boost 10+ yearly_1"
