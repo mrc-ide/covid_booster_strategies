@@ -70,4 +70,4 @@ rq1_inc
 plot_out <- rq1_hosp + rq1_inc +  plot_annotation(tag_levels = "A") + 
   plot_layout(guides = "collect")
 plot_out
-ggsave("plots/FigureS14.png", plot_out, height = 5, width = 13)
+ggsave("plots/FigureS14.png", plot_out, height = 4, width = 10)
