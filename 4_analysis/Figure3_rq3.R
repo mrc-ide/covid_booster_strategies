@@ -1,6 +1,4 @@
-name <- "rq4_lmic_who"
-
-colset <- c(col_set_fig2[1], col_set_fig2[4], "tan4", col_set_fig2[6])
+name <- "rq3_hic_bv_drift"
 
 df_summarise <- readRDS(paste0("processed_outputs/df_summarise_", name, ".rds"))
 df_summarise_totals <- readRDS(paste0("processed_outputs/df_summarise_totals_", name, ".rds")) %>%
@@ -8,22 +6,25 @@ df_summarise_totals <- readRDS(paste0("processed_outputs/df_summarise_totals_", 
     strategy_name,
     levels = c(
       "primary 10+, 3 doses only",
+      "primary 10+, boost 75+ yearly",
+      "primary 10+, boost 75+ 6 monthly",
       "primary 10+, boost 60+ yearly",
-      "primary 10+, boost 40+ yearly",
+      "primary 10+, boost 60+ 6 monthly",
       "primary 10+, boost 10+ yearly"
     ),
     ordered = TRUE
   ))
 
-# plot boosting vulnerable groups only: primary 10+
 df1 <- df_summarise %>%
   mutate(strategy_name = factor(
     strategy_name,
     levels = c(
       "Pre-vaccine introduction",
       "primary 10+, 3 doses only",
+      "primary 10+, boost 75+ yearly",
+      "primary 10+, boost 75+ 6 monthly",
       "primary 10+, boost 60+ yearly",
-      "primary 10+, boost 40+ yearly",
+      "primary 10+, boost 60+ 6 monthly",
       "primary 10+, boost 10+ yearly"
     ),
     ordered = TRUE
@@ -37,7 +38,7 @@ rq1_doses <- ggplot(data = filter(df1,strategy_name != "Pre-vaccine introduction
         panel.border = element_blank(),
         axis.line = element_line(),
         legend.position = "none") + 
-  scale_color_manual(values = colset) +
+  scale_color_manual(values = col_set_fig2) +
   labs(x = "time", y = "cumulative doses\nper person", col = "dose strategy")
 rq1_doses
 
@@ -49,8 +50,8 @@ rq1_hosp <- ggplot(data = df1, aes(x = as.Date(date), y = hosp_t/target_pop * 1e
         panel.border = element_blank(),
         axis.line = element_line(),
         legend.text.align = 0) +
-  scale_color_manual(values = c("grey20", colset)) +
-  scale_fill_manual(values = c("grey20", colset)) +
+  scale_color_manual(values = c("grey20", col_set_fig2[1:6])) +
+  scale_fill_manual(values = c("grey20", col_set_fig2[1:6])) +
   labs(x = "time", y = "daily hospitalisations\nper million", col = "dose strategy", fill = "dose strategy")
 rq1_hosp
 
@@ -62,9 +63,9 @@ rq1_inc <- ggplot(data = df1, aes(x = as.Date(date), y = inc_t/target_pop * 1e6,
         panel.border = element_blank(),
         axis.line = element_line(),
         legend.text.align = 0) +
-  scale_color_manual(values = c("grey20", colset)) +
-  scale_fill_manual(values = c("grey20", colset)) +
- lims(x = c(as.Date("2020-01-01"), as.Date("2024-12-31"))) +
+  scale_color_manual(values = c("grey20", col_set_fig2[1:6])) +
+  scale_fill_manual(values = c("grey20", col_set_fig2[1:6])) +
+   lims(x = c(as.Date("2020-01-01"), as.Date("2024-12-31"))) +
   labs(x = "time", y = "daily infections\nper million", col = "dose strategy", fill = "dose strategy")
   
 rq1_inc
@@ -87,8 +88,8 @@ rq1_summary_plot <- ggplot(data = df_summarydat, aes(x = strategy_name, y = valu
         axis.line = element_line(),
         axis.text.x = element_blank(),
         legend.text.align = 0) +
-  scale_fill_manual(values = colset) +
-  labs(x = "dose strategy", y = "total events per million", fill = "dose strategy")
+  scale_fill_manual(values = col_set_fig2[1:6]) +
+  labs(x = "dose strategy", y = "total events\nper million", fill = "dose strategy")
 
 rq1_summary_plot
 
@@ -123,7 +124,7 @@ rq1_additional <- ggplot(data = df_add1, aes(x = strategy_name, y = value, fill 
         legend.text.align = 0,
         legend.position = "none") +
   labs(x = "dose strategy", y = "additional events averted\nper 100 additional doses", fill = "dose strategy") +
-  scale_fill_manual(values = colset[2:4])
+  scale_fill_manual(values = col_set_fig2[2:6])
 
 rq1_additional
 
@@ -157,6 +158,7 @@ rq1_nat <- ggplot(data = df1_nat, aes(x = as.Date(date), y = titre, col = nat_la
   labs(x = "time", y = "immunity level", col = "IL measure", linetype = "IL measure")
 rq1_nat
 
+
 library(patchwork)
 
 layout <- "
@@ -175,4 +177,4 @@ combined <- rq1_doses +
   plot_annotation(tag_levels = "A") + 
   plot_layout(guides = "collect", design = layout)
 combined
-ggsave(paste0("plots/FigureS9_WHOcov", name, ".png"), combined, height = 10, width = 11)
+ggsave("plots/Figure3_rq3.png", combined, height = 10, width = 11)

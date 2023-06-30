@@ -1,4 +1,4 @@
-name <- "rq3_hic"
+name <- "rq1_hic_decayrate"
 
 #### Get vaccine parameters  ##############################################
 vaccine <- "Moderna"
@@ -15,16 +15,15 @@ vacc_params <- readRDS("data/param_list.rds") %>%
   select(-c(vacc))
 
 #### Set up other simulation parameters  ##############################################
-
-target_pop <-  1e6
+target_pop <- 1e6
 income_group <- "HIC"
 hs_constraints <- "Absent"
 dt <- 0.25
 repetition <- 1:50
 vacc_start <- "1/1/2021"
-vaccine_doses <- c(3,6,8) 
+vaccine_doses <- c(3,6)
 age_groups_covered <- 15
-age_groups_covered_d4 <- c(2, 5, 15)
+age_groups_covered_d4 <- 5
 seeding_cases <- 10
 vacc_per_week <- 0.05
 strategy <- "realistic"
@@ -41,19 +40,19 @@ ICU_scal_vfr <-  0.3
 hosp_scal_vfr <- 0.3
 ICU_scal_vfr2 <- 0.3
 hosp_scal_vfr2 <- 0.3
-mu_ab_infection <- 1 
+mu_ab_infection <- 1
 mu_ab_inf_scal_vfr <- 0.5
 max_ab <- 5
-omicron_vaccine <- 0
-vaccine_vfr <- 1
+omicron_vaccine <- 1
+vaccine_vfr <- 0.62*vfr
 dose_4_fold_increase <- 1
-vfr_drift_factor <- 1
-rt_drift_factor <- 1
+vfr_drift_factor <- 1.05
+rt_drift_factor <- 1.05
+infection_decay_rate_scale <- c(0.5,0.75)
 
-#### Create scenarios ############################################
+#### Create scenarios ##########################################################
 
-scenarios <- expand_grid(fit = fit,
-                         income_group = income_group,
+scenarios <- expand_grid(income_group = income_group,
                          target_pop = target_pop,
                          hs_constraints = hs_constraints,
                          vaccine_doses = vaccine_doses,
@@ -80,19 +79,20 @@ scenarios <- expand_grid(fit = fit,
                          hosp_scal_vfr = hosp_scal_vfr,
                          ICU_scal_vfr = ICU_scal_vfr,
                          hosp_scal_vfr2 = hosp_scal_vfr2,
-                         ICU_scal_vfr2 = ICU_scal_vfr2,                        
+                         ICU_scal_vfr2 = ICU_scal_vfr2,  
                          omicron_vaccine = omicron_vaccine,
                          vaccine_vfr = vaccine_vfr,
                          dose_4_fold_increase = dose_4_fold_increase,
                          vfr_drift_factor = vfr_drift_factor,
-                         rt_drift_factor = rt_drift_factor
-                         ) %>%
+                         rt_drift_factor = rt_drift_factor,
+                         infection_decay_rate_scale = infection_decay_rate_scale
+) %>%
   mutate(age_groups_covered_d3 = age_groups_covered,
-          age_groups_covered_d5 = age_groups_covered_d4,
-          age_groups_covered_d6 = age_groups_covered_d4,
-          age_groups_covered_d7 = age_groups_covered_d4,
-          age_groups_covered_d8 = age_groups_covered_d4,
-          age_groups_covered_d9 = age_groups_covered_d4 ) %>%
+         age_groups_covered_d5 = age_groups_covered_d4,
+         age_groups_covered_d6 = age_groups_covered_d4,
+         age_groups_covered_d7 = age_groups_covered_d4,
+         age_groups_covered_d8 = age_groups_covered_d4,
+         age_groups_covered_d9 = age_groups_covered_d4 ) %>%
   mutate(t_d5 = if_else(vaccine_doses == 8, 181, 365), 
          t_d6 = if_else(t_d5 == 181, 184, 366), 
          t_d7 = if_else(t_d5 == 181, 182, 365),
@@ -137,6 +137,6 @@ config <- didehpc::didehpc_config(use_rrq = FALSE, use_workers = FALSE, cluster=
 run <- didehpc::queue_didehpc(ctx, config = config)
 
 # Run
-runs <- run$enqueue_bulk(scenarios, run_scenario, do_call = TRUE, progress = TRUE)
+runs <- run$enqueue_bulk(scenarios[c(1:92),], run_scenario, do_call = TRUE, progress = TRUE)
 runs$status()
 

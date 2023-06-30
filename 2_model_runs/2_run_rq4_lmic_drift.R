@@ -23,7 +23,7 @@ repetition <-  1:50
 vacc_start <- "4/1/2021"
 vaccine_doses <- c(3, 5)
 age_groups_covered <- 15
-age_groups_covered_d4 <- c(5, 15)
+age_groups_covered_d4 <- c(5, 9, 15)
 seeding_cases <- 10
 vacc_per_week <- 0.02
 strategy <- "realistic"
@@ -43,17 +43,16 @@ hosp_scal_vfr2 <- 0.3
 mu_ab_infection <- 1
 mu_ab_inf_scal_vfr <- 0.5
 max_ab <- 5
-omicron_vaccine <- c(0,1)
-vaccine_vfr <- 0.62*vfr
+omicron_vaccine <- 0
+vaccine_vfr <- 1
 dose_4_fold_increase <- 1
-vfr_drift_factor <- c(1.05, 1.1)
-rt_drift_factor <- 1
+vfr_drift_factor <- 1.05
+rt_drift_factor <- 1.05
 end_date <- "12/31/2024"
 
 #### Create scenarios ##########################################################
 
-scenarios <- expand_grid(fit = fit,
-                         income_group = income_group,
+scenarios <- expand_grid(income_group = income_group,
                          target_pop = target_pop,
                          hs_constraints = hs_constraints,
                          vaccine_doses = vaccine_doses,
@@ -101,8 +100,6 @@ scenarios <- expand_grid(fit = fit,
          t_d9 = 1) %>%
   filter((vaccine_doses==3 & age_groups_covered_d4 == 5)| (vaccine_doses %in% c(4,5)) ) %>%
   filter(age_groups_covered_d4 <= age_groups_covered) %>%
-  mutate(omicron_vaccine = if_else(vaccine_doses == 3, 0, omicron_vaccine)) %>%
-  mutate(rt_drift_factor = vfr_drift_factor) %>%
   unique()
 
 scenarios$scenario <- 1:nrow(scenarios)
@@ -122,8 +119,8 @@ source("R/vaccine_strategy.R")
 source("R/generate_rt_new.R")
 source("R/generate_external_foi.R")
 
-# plan(multicore, workers = 4)
-# system.time({out <- future_pmap(scenarios, run_scenario, .progress = TRUE)})
+#plan(multicore, workers = 4)
+#system.time({out <- future_pmap(scenarios, run_scenario, .progress = TRUE)})
 
 #### Run the model on cluster ###############################################
 # Load functions

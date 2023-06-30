@@ -1,4 +1,4 @@
-name <- "rq1_hic_bv"
+name <- "rq1_hic_bv_drift"
 
 df_summarise <- readRDS(paste0("processed_outputs/df_summarise_", name, ".rds"))
 df_summarise_totals <- readRDS(paste0("processed_outputs/df_summarise_totals_", name, ".rds")) %>%
@@ -177,4 +177,4 @@ combined <- rq1_doses +
   plot_annotation(tag_levels = "A") + 
   plot_layout(guides = "collect", design = layout)
 combined
-ggsave("plots/Figure1.png", combined, height = 10, width = 11)
+ggsave("plots/Figure3.png", combined, height = 10, width = 11)

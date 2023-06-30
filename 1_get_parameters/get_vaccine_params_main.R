@@ -1,13 +1,9 @@
-library(tidyverse)
-library(dplyr)
-library(purrr)
-library(drjacoby)
 
 ##################################
 ##### LOAD THE PARAMETERS 
 ##################################
 
-load("../data_chains/UKHSA_v6_65+_20220702_AZPD2=FALSE_SB=FALSE_NewDecay=TRUE_AddBst=FALSE_AltSev=FALSE_mcmc_chain.Rdata")  
+load("../data_chains/UKHSA_v6pn_65+_20220702_AZPD2=FALSE_SB=FALSE_NewDecay=TRUE_AddBst=FALSE_AltSev=FALSE_mcmc_chain.Rdata")  
 
 ###################################
 ## Calculate parameter estimates and bounds of transformed parameters from 10,000 MCMC samples
@@ -17,9 +13,9 @@ draws <- sample_chains(mcmc, 10000)
 
 draws_transform <- draws %>%
   select(-sample, -AZ_ns_off ) %>%
-  mutate( ab50 = 10^(d2_PF + ni50),
-          ab50_s = 10^(d2_PF + ns50), 
-          ab50_d = 10^(d2_PF + nd50),
+  mutate( ab50 = 10^(ni50),
+          ab50_s = 10^(ns50), 
+          ab50_d = 10^(nd50),
           d1_AZ = 10^(d2_AZ + d1_AZ),
           d1_PF = 10^(d2_PF + d1_PF),
           d1_MD = 10^(d2_MD + d1_MD),
@@ -120,3 +116,12 @@ param_list_out <-
 
 saveRDS(param_list_out, "data/param_list.rds")
 
+# save params for table
+posterior_upper$measure <- "upper"
+posterior_median$measure <- "median"
+posterior_lower$measure <- "lower"
+
+param_list_full <- rbind(posterior_lower, posterior_median) %>%
+  rbind(posterior_upper) %>%
+  select(measure, om_red, k, hl_s, hl_l, period_s, period_l, ab50, ab50_s, ab50_d, d1_AZ, d2_AZ, d3_AZ, d1_PF, d2_PF, d3_PF, d1_MD, d2_MD, d3_MD)
+write_csv(param_list_full, "param_list_full.csv")

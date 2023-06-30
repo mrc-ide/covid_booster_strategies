@@ -1,7 +1,7 @@
-name <- "rq4_lmic_bv"
+name <- "rq1_hic_continual_drift"
 
 #### Get vaccine parameters  ##############################################
-vaccine <- "AstraZeneca Primary, Moderna Booster"
+vaccine <- "Moderna"
 
 vacc_names <- data.frame(vaccine = c("Pfizer", "Oxford-AstraZeneca", "Moderna", "AstraZeneca Primary, Pfizer Booster", "AstraZeneca Primary, Moderna Booster"), vacc = c("PF", "AZ", "MD", "AZ-PF", "AZ-MD"))
 
@@ -16,16 +16,16 @@ vacc_params <- readRDS("data/param_list.rds") %>%
 
 #### Set up other simulation parameters  ##############################################
 target_pop <- 1e6
-income_group <- "LMIC"
-hs_constraints <- "Present"
+income_group <- "HIC"
+hs_constraints <- "Absent"
 dt <- 0.25
-repetition <-  1:50
-vacc_start <- "4/1/2021"
-vaccine_doses <- c(3, 5)
+repetition <- 1:50
+vacc_start <- "1/1/2021"
+vaccine_doses <- c(3,6,8)
 age_groups_covered <- 15
-age_groups_covered_d4 <- c(5, 9, 15)
+age_groups_covered_d4 <- c(2, 5, 15)
 seeding_cases <- 10
-vacc_per_week <- 0.02
+vacc_per_week <- 0.05
 strategy <- "realistic"
 t_d3 <- 227
 t_d4 <- 365
@@ -44,13 +44,11 @@ mu_ab_infection <- 1
 mu_ab_inf_scal_vfr <- 0.5
 max_ab <- 5
 omicron_vaccine <- 1
-variant_specific <- 0
+variant_specific <- 1
 vaccine_vfr <- 0.62*vfr
 dose_4_fold_increase <- 1
-vfr_drift_factor <- 1
-rt_drift_factor <- 1
-end_date <- "12/31/2024"
-infection_decay_rate_scale <- 1
+vfr_drift_factor <- 1.05
+rt_drift_factor <- 1.05
 
 #### Create scenarios ##########################################################
 
@@ -83,13 +81,11 @@ scenarios <- expand_grid(income_group = income_group,
                          hosp_scal_vfr2 = hosp_scal_vfr2,
                          ICU_scal_vfr2 = ICU_scal_vfr2,  
                          omicron_vaccine = omicron_vaccine,
-                         variant_specific = variant_specific,
                          vaccine_vfr = vaccine_vfr,
                          dose_4_fold_increase = dose_4_fold_increase,
                          vfr_drift_factor = vfr_drift_factor,
                          rt_drift_factor = rt_drift_factor,
-                         end_date = end_date,
-                         infection_decay_rate_scale = infection_decay_rate_scale
+                         variant_specific = variant_specific
 ) %>%
   mutate(age_groups_covered_d3 = age_groups_covered,
          age_groups_covered_d5 = age_groups_covered_d4,
@@ -102,7 +98,7 @@ scenarios <- expand_grid(income_group = income_group,
          t_d7 = if_else(t_d5 == 181, 182, 365),
          t_d8 = if_else(t_d5 == 181, 184, 365),
          t_d9 = 1) %>%
-  filter((vaccine_doses==3 & age_groups_covered_d4 == 5)| (vaccine_doses %in% c(4,5)) ) %>%
+  filter((vaccine_doses==3 & age_groups_covered_d4 == 2)| (vaccine_doses == 6) | (vaccine_doses == 8 & age_groups_covered_d4 <= 5)) %>%
   filter(age_groups_covered_d4 <= age_groups_covered) %>%
   unique()
 
@@ -122,10 +118,10 @@ source("R/utils.R")
 source("R/vaccine_strategy.R")
 source("R/generate_rt_new.R")
 source("R/generate_external_foi.R")
-
-#plan(multicore, workers = 4)
-#system.time({out <- future_pmap(scenarios, run_scenario, .progress = TRUE)})
-
+scenarios <- read_csv(paste0("scenarios/scenarios_", name, ".csv"))
+# 
+# plan(multicore, workers = 4)
+# system.time({out <- future_pmap(scenarios[1,], run_scenario, .progress = TRUE)})
 #### Run the model on cluster ###############################################
 # Load functions
 sources <- c("R/run_function_main.R", "R/utils.R", "R/vaccine_strategy.R", "R/generate_rt_new.R", "R/generate_external_foi.R")
@@ -141,6 +137,6 @@ config <- didehpc::didehpc_config(use_rrq = FALSE, use_workers = FALSE, cluster=
 run <- didehpc::queue_didehpc(ctx, config = config)
 
 # Run
-runs <- run$enqueue_bulk(scenarios[c(91:142,185:200),], run_scenario, do_call = TRUE, progress = TRUE)
+runs <- run$enqueue_bulk(scenarios[c(141:148,213:247),], run_scenario, do_call = TRUE, progress = TRUE)
 runs$status()
 

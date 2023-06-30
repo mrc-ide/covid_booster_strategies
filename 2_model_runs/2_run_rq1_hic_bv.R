@@ -28,7 +28,7 @@ seeding_cases <- 10
 vacc_per_week <- 0.05
 strategy <- "realistic"
 t_d3 <- 227
-t_d4 <- 365
+t_d4 = 365
 vfr_time1 <- "11/27/2021"
 vfr_time2 <- "12/31/2021"
 vfr2_time1 <- "10/1/2022" # wont have any effect if vfr2 <- vfr, hosp_scale_vfr <- hosp_scale_vfr2 and ICU_scal_vfr <- ICU_scal_vfr2
@@ -45,14 +45,15 @@ mu_ab_inf_scal_vfr <- 0.5
 max_ab <- 5
 omicron_vaccine <- 1
 vaccine_vfr <- 0.62*vfr
+variant_specific <- 0
 dose_4_fold_increase <- 1
 vfr_drift_factor <- 1
 rt_drift_factor <- 1
+infection_decay_rate_scale <- 1
 
 #### Create scenarios ##########################################################
 
-scenarios <- expand_grid(fit = fit,
-                         income_group = income_group,
+scenarios <- expand_grid(income_group = income_group,
                          target_pop = target_pop,
                          hs_constraints = hs_constraints,
                          vaccine_doses = vaccine_doses,
@@ -81,10 +82,12 @@ scenarios <- expand_grid(fit = fit,
                          hosp_scal_vfr2 = hosp_scal_vfr2,
                          ICU_scal_vfr2 = ICU_scal_vfr2,  
                          omicron_vaccine = omicron_vaccine,
+                         variant_specific = variant_specific,
                          vaccine_vfr = vaccine_vfr,
                          dose_4_fold_increase = dose_4_fold_increase,
                          vfr_drift_factor = vfr_drift_factor,
-                         rt_drift_factor = rt_drift_factor
+                         rt_drift_factor = rt_drift_factor,
+                         infection_decay_rate_scale = infection_decay_rate_scale
 ) %>%
   mutate(age_groups_covered_d3 = age_groups_covered,
          age_groups_covered_d5 = age_groups_covered_d4,
@@ -117,7 +120,6 @@ source("R/utils.R")
 source("R/vaccine_strategy.R")
 source("R/generate_rt_new.R")
 source("R/generate_external_foi.R")
-
 # plan(multicore, workers = 4)
 # system.time({out <- future_pmap(scenarios, run_scenario, .progress = TRUE)})
 
@@ -136,6 +138,8 @@ config <- didehpc::didehpc_config(use_rrq = FALSE, use_workers = FALSE, cluster=
 run <- didehpc::queue_didehpc(ctx, config = config)
 
 # Run
-runs <- run$enqueue_bulk(scenarios, run_scenario, do_call = TRUE, progress = TRUE)
+runs <- run$enqueue_bulk(scenarios[c(289, 298:300,225:240),], run_scenario, do_call = TRUE, progress = TRUE)
 runs$status()
+
+
 

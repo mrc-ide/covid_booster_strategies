@@ -19,16 +19,16 @@ target_pop <- 1e6
 income_group <- "HIC"
 hs_constraints <- "Absent"
 dt <- 0.25
-repetition <-  1:50
+repetition <- 1:50
 vacc_start <- "1/1/2021"
-vaccine_doses <- c(3,6)
+vaccine_doses <- c(3,6,8)
 age_groups_covered <- 15
-age_groups_covered_d4 <- c(5, 15)
+age_groups_covered_d4 <- c(2, 5, 15)
 seeding_cases <- 10
 vacc_per_week <- 0.05
 strategy <- "realistic"
 t_d3 <- 227
-t_d4 <- 365
+t_d4 = 365
 vfr_time1 <- "11/27/2021"
 vfr_time2 <- "12/31/2021"
 vfr2_time1 <- "10/1/2022" # wont have any effect if vfr2 <- vfr, hosp_scale_vfr <- hosp_scale_vfr2 and ICU_scal_vfr <- ICU_scal_vfr2
@@ -43,16 +43,15 @@ hosp_scal_vfr2 <- 0.3
 mu_ab_infection <- 1
 mu_ab_inf_scal_vfr <- 0.5
 max_ab <- 5
-omicron_vaccine <- c(0,1)
-vaccine_vfr <- 0.62*vfr
+omicron_vaccine <- 0
+vaccine_vfr <- 1
 dose_4_fold_increase <- 1
-vfr_drift_factor <- c(1.05, 1.1)
-rt_drift_factor <- 1
+vfr_drift_factor <- 1.05
+rt_drift_factor <- 1.05
 
 #### Create scenarios ##########################################################
 
-scenarios <- expand_grid(fit = fit,
-                         income_group = income_group,
+scenarios <- expand_grid(income_group = income_group,
                          target_pop = target_pop,
                          hs_constraints = hs_constraints,
                          vaccine_doses = vaccine_doses,
@@ -97,10 +96,8 @@ scenarios <- expand_grid(fit = fit,
          t_d7 = if_else(t_d5 == 181, 182, 365),
          t_d8 = if_else(t_d5 == 181, 184, 365),
          t_d9 = 1) %>%
-  filter((vaccine_doses==3 & age_groups_covered_d4 == 5)| (vaccine_doses == 6) ) %>%
+  filter((vaccine_doses==3 & age_groups_covered_d4 == 2)| (vaccine_doses == 6) | (vaccine_doses == 8 & age_groups_covered_d4 <= 5)) %>%
   filter(age_groups_covered_d4 <= age_groups_covered) %>%
-  filter((vaccine_doses == 3 & omicron_vaccine == 0 )| vaccine_doses == 6 ) %>%
-  mutate(rt_drift_factor = vfr_drift_factor) %>%
   unique()
 
 scenarios$scenario <- 1:nrow(scenarios)
@@ -139,4 +136,6 @@ run <- didehpc::queue_didehpc(ctx, config = config)
 # Run
 runs <- run$enqueue_bulk(scenarios, run_scenario, do_call = TRUE, progress = TRUE)
 runs$status()
+
+
 

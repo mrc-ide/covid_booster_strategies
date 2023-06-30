@@ -1,0 +1,16 @@
+dose ,date,category
+Dose 1,2021-01-01,Category 1
+Dose 2,2021-01-29,Category 1
+Dose 3,2021-09-13,Category 1
+Dose 4 ,2022-09-13,Category 1
+Additional Doses,2023-03-14,Category 1
+Dose 1,2021-04-01,Category 2
+Dose 2,2021-04-29,Category 2
+Dose 3,2021-12-12,Category 2
+Dose 4 ,2022-12-12,Category 2
+Additional Doses,2023-12-12,Category 2
+Dose 1,2021-01-01,Category 3
+Dose 2,2021-01-29,Category 3
+Dose 3,2021-09-13,Category 3
+Dose 4 ,2022-09-13,Category 3
+Additional Doses,2023-03-14,Category 3

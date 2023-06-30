@@ -46,14 +46,13 @@ max_ab <- 5
 omicron_vaccine <- 1
 vaccine_vfr <- 0.62*vfr
 dose_4_fold_increase <- 1
-vfr_drift_factor <- 1
-rt_drift_factor <- 1
+vfr_drift_factor <- 1.05
+rt_drift_factor <- 1.05
 end_date <- "12/31/2024"
 
 #### Create scenarios ##########################################################
 
-scenarios <- expand_grid(fit = fit,
-                         income_group = income_group,
+scenarios <- expand_grid(income_group = income_group,
                          target_pop = target_pop,
                          hs_constraints = hs_constraints,
                          vaccine_doses = vaccine_doses,

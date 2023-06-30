@@ -1,7 +1,6 @@
 # main running function
 run_scenario <- 
-  function(fit,
-           scenario = 1,
+  function(scenario = 1,
            target_pop = 1e6,
            income_group = "HIC",
            hs_constraints = "Absent",
@@ -58,11 +57,13 @@ run_scenario <-
            ICU_scal_vfr = 1,
            hosp_scal_vfr2 = 1,
            ICU_scal_vfr2 = 1,
-           omicron_vaccine = 0,
+           omicron_vaccine = 1,
+           variant_specific = 0,
            vaccine_vfr = 1,
            end_date = "12/31/2024",
            vfr_drift_factor = 1,
-           rt_drift_factor = 1){
+           rt_drift_factor = 1,
+           infection_decay_rate_scale = 1){
     
     # set up transmission
     R0_t0 <- as.Date(x = "2/1/2020", format = "%m/%d/%Y")
@@ -117,7 +118,7 @@ run_scenario <-
                                                R0_t0 = R0_t0)
     }
     
-    # implement option for gradual variant replacement in form of small rt increase every 6 months
+    # implement option for gradual variant replacement in form of small rt increase every 4 months
     drift_start <- as.Date("2022-04-01", format = "%Y-%m-%d")
     drift_start_day <- as.integer(difftime(drift_start, R0_t0 - 1))
     
@@ -210,34 +211,6 @@ run_scenario <-
     t_d8 <- vaccine_out$t_d8
     t_d9 <- vaccine_out$t_d9
     
-    # profiles and dosing
-    vax_pars <- get_vaccine_pars(vaccine = vaccine,
-                                 income_group = income_group,
-                                 mu_ab_d1 = mu_ab_d1,
-                                 mu_ab_d2 = mu_ab_d2,
-                                 vaccine_doses = vaccine_doses,
-                                 dose_3_fold_increase = dose_3_fold_increase,
-                                 dose_4_fold_increase = dose_4_fold_increase,
-                                 ab_50 = ab_50,
-                                 ab_50_severe = ab_50_severe,
-                                 std10 = std10,
-                                 k = k,
-                                 t_d2 = t_d2,
-                                 t_d3 = t_d3,
-                                 t_d4 = t_d4,
-                                 t_d5 = t_d5,
-                                 t_d6 = t_d6,
-                                 t_d7 = t_d7,
-                                 t_d8 = t_d8,
-                                 t_d9 = t_d9,
-                                 hl_s = hl_s,
-                                 hl_l = hl_l,
-                                 period_s = period_s,
-                                 period_l = period_l,
-                                 vfr = vfr,
-                                 omicron_vaccine = omicron_vaccine,
-                                 vaccine_vfr = vaccine_vfr)
-    
     # dosing
     if (vaccine_doses == 2) {dose_period <- c(NaN, 28)}
     if (vaccine_doses == 3) {dose_period <- c(NaN, 28, t_d3)}
@@ -247,19 +220,6 @@ run_scenario <-
     if (vaccine_doses == 7) {dose_period <- c(NaN, 28, t_d3, t_d4, t_d5, t_d6, t_d7)}
     if (vaccine_doses == 8) {dose_period <- c(NaN, 28, t_d3, t_d4, t_d5, t_d6, t_d7, t_d8)}
     if (vaccine_doses == 9) {dose_period <- c(NaN, 28, t_d3, t_d4, t_d5, t_d6, t_d7, t_d8, t_d9)}
-    
-    # combine parameters and verify
-    parameters <- make_vaccine_parameters(
-      safir_parameters = parameters,
-      vaccine_ab_parameters = vax_pars,
-      vaccine_set = vaccine_set,
-      dose_period = dose_period,
-      strategy_matrix = vaccine_coverage_strategy,
-      next_dose_priority_matrix = next_dose_priority
-    )
-    
-    #parameters$mu_ab_infection <- mu_ab_infection
-
     
     # make VFR reduction vector and attach
     vfr_time1 <- as.Date(x = vfr_time1, format = "%m/%d/%Y")
@@ -292,6 +252,54 @@ run_scenario <-
     vfr_drift_multiplier <- c(rep(1, drift_start_day - 1),x)
     vfr_drift_multiplier <- vfr_drift_multiplier[1:time_period]
     
+    vfr_final <- vfr_vector * vfr_drift_multiplier
+    
+    # profiles
+    vax_pars <- get_vaccine_pars(vaccine = vaccine,
+                                 income_group = income_group,
+                                 mu_ab_d1 = mu_ab_d1,
+                                 mu_ab_d2 = mu_ab_d2,
+                                 vaccine_doses = vaccine_doses,
+                                 dose_3_fold_increase = dose_3_fold_increase,
+                                 dose_4_fold_increase = dose_4_fold_increase,
+                                 ab_50 = ab_50,
+                                 ab_50_severe = ab_50_severe,
+                                 std10 = std10,
+                                 k = k,
+                                 t_d2 = t_d2,
+                                 t_d3 = t_d3,
+                                 t_d4 = t_d4,
+                                 t_d5 = t_d5,
+                                 t_d6 = t_d6,
+                                 t_d7 = t_d7,
+                                 t_d8 = t_d8,
+                                 t_d9 = t_d9,
+                                 hl_s = hl_s,
+                                 hl_l = hl_l,
+                                 period_s = period_s,
+                                 period_l = period_l,
+                                 vfr = vfr,
+                                 omicron_vaccine = omicron_vaccine,
+                                 variant_specific = variant_specific,
+                                 vaccine_vfr = vaccine_vfr,
+                                 vfr_final = vfr_final,
+                                 days_to_vacc_start = days_to_vacc_start)
+    
+
+    
+    # combine parameters and verify
+    parameters <- make_vaccine_parameters(
+      safir_parameters = parameters,
+      vaccine_ab_parameters = vax_pars,
+      vaccine_set = vaccine_set,
+      dose_period = dose_period,
+      strategy_matrix = vaccine_coverage_strategy,
+      next_dose_priority_matrix = next_dose_priority
+    )
+    
+    
+  
+    
     # set up mu_ab_infection vector
     mu_ab_infection_vector <- c(rep(mu_ab_infection, (vfr_time1_day - 1)),
                                 seq(mu_ab_infection, mu_ab_infection*vfr, length = vfr_time2_day - vfr_time1_day + 1),
@@ -299,7 +307,7 @@ run_scenario <-
                                 seq(mu_ab_infection*vfr, mu_ab_infection*vfr2, length = vfr2_time2_day - vfr2_time1_day + 1),
                                 rep(mu_ab_infection*vfr2, time_period - vfr2_time2_day-1))
     
-    # first way of doing this applied the 50% in protection against reinfection again each time a new variant emerged.
+    # apply the 50% in protection against reinfection again each time a new variant emerged.
     
     mu_ab_inf_scal_vfr_vector <- c(rep(1, (vfr_time1_day - 1)),
                                    seq(1, mu_ab_inf_scal_vfr, length = vfr_time2_day - vfr_time1_day + 1),
@@ -307,13 +315,6 @@ run_scenario <-
     
     mu_ab_infection_vector_in <- t(as.matrix(mu_ab_infection_vector * mu_ab_inf_scal_vfr_vector * vfr_drift_multiplier))
     
-    #other option is to maintain at Omicron level of protection against reinfection
-    # adjust <- c(rep(0, (vfr_time1_day - 1)),
-    #             seq(0, vfr * mu_ab_inf_scal_vfr, length = vfr_time2_day - vfr_time1_day + 1),
-    #             rep(vfr * mu_ab_inf_scal_vfr, time_period - vfr_time2_day ))
-    # 
-    # sub <- mu_ab_infection_vector * vfr_drift_multiplier - adjust
-    # mu_ab_infection_vector_in <- t(as.matrix(sub))
     
     parameters <-
       make_immune_parameters(
@@ -366,7 +367,8 @@ run_scenario <-
     
     # assume that the decay rate for natural infection is the same as for the vaccine
     dr_vec_inf <- dr_vec %>%
-      select(N) 
+      select(N) %>%
+      mutate(N = N * infection_decay_rate_scale)
     
     dr_vec_doses_m <- data.matrix(dr_vec_vaccine)
     dr_vec_inf_m <- data.matrix(dr_vec_inf)

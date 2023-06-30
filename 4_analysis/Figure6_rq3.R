@@ -84,7 +84,7 @@ combined <- rq3_hosp + rq3_inc + rq3_summary_plot  +
         legend.box = 'vertical')
 
 combined
-ggsave(paste0("plots/FigureS12.png"),combined, height = 7, width = 10)
+ggsave(paste0("plots/FigureS11.png"),combined, height = 7, width = 10)
 
 tab_rq3 <- df_totals_rq3 %>%
   mutate(infections = inc_med,
@@ -93,5 +93,5 @@ tab_rq3 <- df_totals_rq3 %>%
   select(strategy_name, infections, hospitalisations, deaths, variant_scenario) %>%
   mutate(category = 2)
 
-write_csv(tab_rq3, "tables/totals_figure5_rq3.csv")
+write_csv(tab_rq3, "tables/totals_figure6_rq3.csv")
 

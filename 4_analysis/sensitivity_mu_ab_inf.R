@@ -13,9 +13,8 @@ df_bv <- readRDS(paste0("processed_outputs/df_summarise_", name, ".rds")) %>%
       "primary 10+, boost 10+ yearly"
     ),
     ordered = TRUE
-  )) %>%
-  filter(strategy_name == "primary 10+, boost 60+ yearly")
-
+  ))%>%
+  filter(strategy_name %in% c("primary 10+, boost 60+ yearly")) 
 
 df_bv_totals <- readRDS(paste0("processed_outputs/df_summarise_totals_", name, ".rds")) %>%
   mutate(strategy_name = factor(
@@ -62,12 +61,12 @@ rq1_inc <- ggplot(data = df_bv, aes(x = as.Date(date), y = inc_t/target_pop * 1e
         legend.text.align = 0) +
   scale_color_manual(values = c("grey20", col_set_fig2[c(1,4)])) +
   scale_fill_manual(values = c("grey20", col_set_fig2[c(1,4)])) +
-  #lims(x = c(as.Date("2020-01-01"), as.Date("2024-12-31"))) +
+  lims(x = c(as.Date("2020-01-01"), as.Date("2024-12-31"))) +
   labs(x = "time", y = "daily infections\nper million", col = expression(n[I]), fill =  expression(n[I]))
 
 rq1_inc
 
-plot_out <- rq1_hosp + rq1_inc +  plot_annotation(tag_levels = "A") + 
+plot_out <- rq1_hosp / rq1_inc +  plot_annotation(tag_levels = "A") + 
   plot_layout(guides = "collect")
 plot_out
-ggsave("plots/FigureS14.png", plot_out, height = 4, width = 10)
+ggsave("plots/FigureS13sensitivity_mu_ab_inf.png", plot_out, height = 8, width = 10)

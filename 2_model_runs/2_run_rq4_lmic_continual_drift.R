@@ -1,4 +1,4 @@
-name <- "rq4_lmic_bv"
+name <- "rq4_lmic_continual_drift"
 
 #### Get vaccine parameters  ##############################################
 vaccine <- "AstraZeneca Primary, Moderna Booster"
@@ -44,13 +44,12 @@ mu_ab_infection <- 1
 mu_ab_inf_scal_vfr <- 0.5
 max_ab <- 5
 omicron_vaccine <- 1
-variant_specific <- 0
+variant_specific <- 1
 vaccine_vfr <- 0.62*vfr
 dose_4_fold_increase <- 1
-vfr_drift_factor <- 1
-rt_drift_factor <- 1
+vfr_drift_factor <- 1.05
+rt_drift_factor <- 1.05
 end_date <- "12/31/2024"
-infection_decay_rate_scale <- 1
 
 #### Create scenarios ##########################################################
 
@@ -83,13 +82,12 @@ scenarios <- expand_grid(income_group = income_group,
                          hosp_scal_vfr2 = hosp_scal_vfr2,
                          ICU_scal_vfr2 = ICU_scal_vfr2,  
                          omicron_vaccine = omicron_vaccine,
-                         variant_specific = variant_specific,
                          vaccine_vfr = vaccine_vfr,
                          dose_4_fold_increase = dose_4_fold_increase,
                          vfr_drift_factor = vfr_drift_factor,
                          rt_drift_factor = rt_drift_factor,
                          end_date = end_date,
-                         infection_decay_rate_scale = infection_decay_rate_scale
+                         variant_specific = variant_specific
 ) %>%
   mutate(age_groups_covered_d3 = age_groups_covered,
          age_groups_covered_d5 = age_groups_covered_d4,
@@ -124,7 +122,7 @@ source("R/generate_rt_new.R")
 source("R/generate_external_foi.R")
 
 #plan(multicore, workers = 4)
-#system.time({out <- future_pmap(scenarios, run_scenario, .progress = TRUE)})
+#system.time({out <- future_pmap(scenarios[1,], run_scenario, .progress = TRUE)})
 
 #### Run the model on cluster ###############################################
 # Load functions
@@ -141,6 +139,6 @@ config <- didehpc::didehpc_config(use_rrq = FALSE, use_workers = FALSE, cluster=
 run <- didehpc::queue_didehpc(ctx, config = config)
 
 # Run
-runs <- run$enqueue_bulk(scenarios[c(91:142,185:200),], run_scenario, do_call = TRUE, progress = TRUE)
+runs <- run$enqueue_bulk(scenarios[c(1:8,72:200),], run_scenario, do_call = TRUE, progress = TRUE)
 runs$status()
 

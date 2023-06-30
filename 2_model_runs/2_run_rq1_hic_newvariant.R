@@ -31,11 +31,11 @@ t_d3 <- 227
 t_d4 <- 365
 vfr_time1 <- "11/27/2021"
 vfr_time2 <- "12/31/2021"
-vfr2_time1 <- "10/1/2022" 
-vfr2_time2 <- "10/31/2022"
+vfr2_time1 <- "10/1/2023" 
+vfr2_time2 <- "10/31/2023"
 vfr <- sort(unique(vacc_params$vfr))[2]
 vfr2 <- c(vfr, 10) # if no change in vfr after omicron, set vfr2 <- vfr
-max_Rt_var2_scal <- 1.1
+max_Rt_var2_scal <- 1
 ICU_scal_vfr <-  0.3
 hosp_scal_vfr <- 0.3
 ICU_scal_vfr2 <-  c(0.3, 1)
@@ -46,13 +46,12 @@ max_ab <- 5
 omicron_vaccine <- 1
 vaccine_vfr <- 0.62*vfr
 dose_4_fold_increase <- 1
-vfr_drift_factor <- 1
-rt_drift_factor <- 1
+vfr_drift_factor <- 1.05
+rt_drift_factor <- 1.05
 
 #### Create scenarios ##########################################################
 
-scenarios <- expand_grid(fit = fit,
-                         income_group = income_group,
+scenarios <- expand_grid(income_group = income_group,
                          target_pop = target_pop,
                          hs_constraints = hs_constraints,
                          vaccine_doses = vaccine_doses,
