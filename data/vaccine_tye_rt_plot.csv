@@ -1,0 +1,7 @@
+Vaccine,date_start,date_end,category
+Ancestral,2021-01-01,2022-09-13,Category 1
+Variant adapted,2022-09-13,2025-01-01,Category 1
+Ancestral,2021-04-01,2022-12-12,Category 2
+Variant adapted,2022-12-12,2025-01-01,Category 2
+Ancestral,2021-01-01,2022-09-13,Category 3
+Variant adapted,2022-09-13,2025-01-01,Category 3

@@ -1,6 +1,6 @@
 ### additional analysis for the LMIC setting ###
 
-rq2 <- readRDS("processed_outputs/df_summarise_totals_rq2_lmic.rds") %>%
+rq2 <- readRDS("processed_outputs/df_summarise_totals_rq2_lmic_drift.rds") %>%
   select(name, strategy, strategy_name, target_pop, deaths_med,  hosp_med, inc_med, total_doses_med) %>%
   pivot_longer(cols = contains("_med"), names_to = "compartment") %>%
   # scale to per million population
