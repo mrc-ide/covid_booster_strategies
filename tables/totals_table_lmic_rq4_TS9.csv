@@ -1,7 +1,5 @@
 name,strategy_name,total_doses_med,infections,hospitalisations,deaths,variant_scenario
-rq4_lmic,"primary 10+, 3 doses only",1390966,2724,2246,395,NA
-rq4_lmic,"primary 10+, boost 60+ yearly",1470884,2695,2194,384,NA
-rq4_lmic,"primary 10+, boost 40+ yearly",1647310,2652,2120,374,NA
-rq4_lmic,"primary 10+, boost 10+ yearly",2063267,2502,2028,358,NA
-rq4_lmic_drift,"primary 10+, boost 60+ yearly",1470884,4526,3385,596,"primary 10+, boost 60+ yearly_0"
-rq4_lmic_drift,"primary 10+, boost 10+ yearly",2063267,4363,3300,584,"primary 10+, boost 10+ yearly_0"
+rq4_lmic_bv,"primary 10+, 3 doses only",1594343,3216,2703,474,NA
+rq4_lmic_bv,"primary 10+, boost 60+ yearly",1679471,3132,2441,414,NA
+rq4_lmic_bv,"primary 10+, boost 40+ yearly",1867403,2955,2271,393,NA
+rq4_lmic_bv,"primary 10+, boost 10+ yearly",2363597,2413,1946,346,NA

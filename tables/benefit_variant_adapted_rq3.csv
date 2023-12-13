@@ -1,0 +1,10 @@
+scenario,strategy_name,total_doses_med,infections,hospitalisations,deaths
+ancestral vaccine,"primary 10+, 3 doses only",2014833,5206,13028,2514
+ancestral vaccine,"primary 10+, boost 60+ yearly",2690403,4976,11510,2156
+ancestral vaccine,"primary 10+, boost 10+ yearly",3352017,4742,11146,2136
+variant-adapted vaccine,"primary 10+, 3 doses only",2014833,5167,13031,2536
+variant-adapted vaccine,"primary 10+, boost 60+ yearly",2690403,4778,9926,1804
+variant-adapted vaccine,"primary 10+, boost 10+ yearly",3352017,4081,9040,1688
+yearly updated vaccine,"primary 10+, 3 doses only",2014833,5179,12956,2520
+yearly updated vaccine,"primary 10+, boost 60+ yearly",2690403,4565,8970,1576
+yearly updated vaccine,"primary 10+, boost 10+ yearly",3352017,3456,7740,1434

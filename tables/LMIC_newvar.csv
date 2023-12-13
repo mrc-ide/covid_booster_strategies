@@ -1,0 +1,5 @@
+name,strategy_name,variant_scenario,total_doses_med,infections,hospitalisations,deaths
+rq4_lmic_newvariant,"primary 10+, boost 60+ yearly",no new variant,1679471,5118,3743,647
+rq4_lmic_newvariant,"primary 10+, boost 60+ yearly",increased severity,1679471,5118,6902,2156
+rq4_lmic_newvariant,"primary 10+, boost 60+ yearly",additional immune escape,1679471,5756,4384,764
+rq4_lmic_newvariant,"primary 10+, boost 60+ yearly",increased severity and immune escape,1679471,5754,8636,2804

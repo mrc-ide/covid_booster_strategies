@@ -1,17 +1,13 @@
 name,strategy_name,total_doses_med,infections,hospitalisations,deaths,variant_scenario
-rq1_hic,"primary 10+, 3 doses only",2014833,2484,5390,1061,NA
-rq1_hic,"primary 10+, boost 75+ yearly",2224848,2454,4891,902,NA
-rq1_hic,"primary 10+, boost 75+ 6 monthly",2364858,2443,4700,848,NA
-rq1_hic,"primary 10+, boost 60+ yearly",2690403,2373,4522,850,NA
-rq1_hic,"primary 10+, boost 60+ 6 monthly",3140783,2324,4140,763,NA
-rq1_hic,"primary 10+, boost 10+ yearly",3352017,2178,4268,810,NA
-rq1_hic_drift,"primary 10+, boost 60+ yearly",2690403,3761,5822,1063,"primary 10+, boost 60+ yearly_1"
-rq1_hic_drift,"primary 10+, boost 10+ yearly",3352017,3798,6956,1340,"primary 10+, boost 10+ yearly_0"
-rq3_hic,"primary 10+, 3 doses only",2014833,2989,8872,1704,NA
-rq3_hic,"primary 10+, boost 75+ yearly",2224848,2907,8152,1502,NA
-rq3_hic,"primary 10+, boost 75+ 6 monthly",2364858,2931,7987,1450,NA
-rq3_hic,"primary 10+, boost 60+ yearly",2690403,2785,7620,1434,NA
-rq3_hic,"primary 10+, boost 60+ 6 monthly",3140783,2791,7304,1360,NA
-rq3_hic,"primary 10+, boost 10+ yearly",3352017,2655,7484,1411,NA
-rq3_hic_drift,"primary 10+, boost 60+ yearly",2690403,4322,10295,1968,"primary 10+, boost 60+ yearly_0"
-rq3_hic_drift,"primary 10+, boost 10+ yearly",3352017,4183,10222,1956,"primary 10+, boost 10+ yearly_0"
+rq1_hic_bv,"primary 10+, 3 doses only",2014833,2949,6338,1236,NA
+rq1_hic_bv,"primary 10+, boost 75+ yearly",2224848,2868,5190,889,NA
+rq1_hic_bv,"primary 10+, boost 75+ 6 monthly",2364858,2851,4996,838,NA
+rq1_hic_bv,"primary 10+, boost 60+ yearly",2690403,2631,4222,768,NA
+rq1_hic_bv,"primary 10+, boost 60+ 6 monthly",3140783,2560,3860,678,NA
+rq1_hic_bv,"primary 10+, boost 10+ yearly",3352017,1982,3420,646,NA
+rq3_hic_bv,"primary 10+, 3 doses only",2014833,3487,9874,1904,NA
+rq3_hic_bv,"primary 10+, boost 75+ yearly",2224848,3382,8416,1490,NA
+rq3_hic_bv,"primary 10+, boost 75+ 6 monthly",2364858,3363,8285,1421,NA
+rq3_hic_bv,"primary 10+, boost 60+ yearly",2690403,3173,7366,1318,NA
+rq3_hic_bv,"primary 10+, boost 60+ 6 monthly",3140783,3083,6976,1208,NA
+rq3_hic_bv,"primary 10+, boost 10+ yearly",3352017,2448,6354,1179,NA

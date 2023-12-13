@@ -1,8 +1,6 @@
-name,strategy_name,variant_scenario,total_doses_med,infections,hospitalisations,deaths,cost_per_hosp1,cost_per_hosp2,cost_per_hosp3,cost_per_death1,cost_per_death2,cost_per_death3
-rq4_lmic_bv,"primary 10+, boost 60+ yearly",NA,79918,71,226,55,707,7072,17681,2906,29061,72653
-rq4_lmic_bv,"primary 10+, boost 40+ yearly",NA,256344,220,378,69,1356,13563,33908,7430,74303,185757
-rq4_lmic_bv,"primary 10+, boost 10+ yearly",NA,672301,638,622,105,2162,21617,54043,12806,128057,320143
-rq4_lmic_newvariant,"primary 10+, boost 60+ yearly",increased severity and immune escape,79918,66,565,276,283,2829,7072,579,5791,14478
-rq4_lmic_drift,"primary 10+, boost 60+ yearly",omicron_vaccine_1,79918,78,248,58,644,6445,16112,2756,27558,68895
-rq4_lmic_newvariant,"primary 10+, boost 10+ yearly",increased severity and immune escape,672301,529,1445,585,931,9305,23263,2298,22985,57462
-rq4_lmic_drift,"primary 10+, boost 10+ yearly",omicron_vaccine_1,672301,614,563,98,2388,23883,59707,13720,137204,343011
+name,strategy_name,variant_scenario,total_doses_med,infections,hospitalisations,deaths,doses_avert_hosp,doses_avert_death,cost_per_hosp1,cost_per_hosp2,cost_per_hosp3,cost_per_death1,cost_per_death2,cost_per_death3
+rq4_lmic_bv_drift,"primary 10+, boost 60+ yearly",omicron_vaccine_-,85128,89,337,72,253,1182,505,5052,12630,2365,23647,59117
+rq4_lmic_bv_drift,"primary 10+, boost 40+ yearly",omicron_vaccine_-,273060,259,482,93,567,2936,1133,11330,28326,5872,58723,146806
+rq4_lmic_bv_drift,"primary 10+, boost 10+ yearly",omicron_vaccine_-,769254,756,695,121,1107,6357,2214,22137,55342,12715,127149,317874
+rq4_lmic_newvariant,"primary 10+, boost 60+ yearly",increased severity and immune escape,85128,71,505,222,169,383,337,3371,8429,767,7669,19173
+rq4_lmic_newvariant,"primary 10+, boost 10+ yearly",increased severity and immune escape,769254,568,984,329,782,2338,1564,15635,39088,4676,46763,116908

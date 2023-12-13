@@ -1,0 +1,9 @@
+strategy_name,infections,hospitalisations,deaths,variant_scenario,category
+"primary 10+, boost 60+ yearly",2219807.5,3678,676,no new variant,1
+"primary 10+, boost 60+ yearly",2440704,6614,1605,increased severity,1
+"primary 10+, boost 60+ yearly",2809677.5,4691.5,855.5,additional immune escape,1
+"primary 10+, boost 60+ yearly",2810421,8776.5,2235.5,increased severity and immune escape,1
+"primary 10+, boost 60+ yearly",5118076,3743,647,no new variant,2
+"primary 10+, boost 60+ yearly",5118351.5,6902,2155.5,increased severity,2
+"primary 10+, boost 60+ yearly",5756091,4384,763.5,additional immune escape,2
+"primary 10+, boost 60+ yearly",5753656,8635.5,2804.5,increased severity and immune escape,2

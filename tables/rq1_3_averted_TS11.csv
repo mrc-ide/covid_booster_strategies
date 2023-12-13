@@ -1,15 +1,11 @@
-name,strategy_name,variant_scenario,total_doses_med,infections,hospitalisations,deaths,cost_per_hosp1,cost_per_hosp2,cost_per_hosp3,cost_per_death1,cost_per_death2,cost_per_death3
-rq1_hic,"primary 10+, boost 75+ yearly",NA,210015,30,499,159,842,8417,21044,2642,26417,66042
-rq1_hic,"primary 10+, boost 75+ 6 monthly",NA,350025,42,690,213,1015,10146,25364,3287,32866,82165
-rq1_hic,"primary 10+, boost 60+ yearly",NA,675570,112,868,211,1557,15566,38915,6404,64035,160088
-rq1_hic,"primary 10+, boost 60+ 6 monthly",NA,1125950,160,1250,298,1802,18015,45038,7557,75567,188918
-rq1_hic,"primary 10+, boost 10+ yearly",NA,1337184,307,1122,251,2384,23836,59589,10655,106549,266371
-rq1_hic_drift,"primary 10+, boost 60+ yearly",omicron_vaccine_0,675570,129,973,233,1389,13886,34716,5799,57989,144972
-rq1_hic_drift,"primary 10+, boost 10+ yearly",omicron_vaccine_0,1337184,310,1144,247,2338,23377,58443,10827,108274,270685
-rq3_hic,"primary 10+, boost 75+ yearly",NA,210015,82,720,202,583,5834,14584,2079,20794,51984
-rq3_hic,"primary 10+, boost 75+ 6 monthly",NA,350025,58,885,254,791,7910,19775,2756,27561,68903
-rq3_hic,"primary 10+, boost 60+ yearly",NA,675570,204,1252,270,1079,10792,26980,5004,50042,125106
-rq3_hic,"primary 10+, boost 60+ 6 monthly",NA,1125950,198,1568,344,1436,14362,35904,6546,65462,163656
-rq3_hic,"primary 10+, boost 10+ yearly",NA,1337184,334,1388,293,1927,19268,48169,9128,91275,228188
-rq3_hic_drift,"primary 10+, boost 60+ yearly",omicron_vaccine_0,675570,159,1263,268,1070,10698,26745,5042,50416,126039
-rq3_hic_drift,"primary 10+, boost 10+ yearly",omicron_vaccine_0,1337184,298,1336,280,2002,20018,50044,9551,95513,238783
+name,strategy_name,variant_scenario,total_doses_med,infections,hospitalisations,deaths,doses_avert_hosp,doses_avert_death,cost_per_hosp1,cost_per_hosp2,cost_per_hosp3,cost_per_death1,cost_per_death2,cost_per_death3
+rq1_hic_bv,"primary 10+, boost 75+ yearly",NA,210015,82,1148,347,183,605,366,3659,9147,1210,12105,30262
+rq1_hic_bv,"primary 10+, boost 75+ 6 monthly",NA,350025,98,1342,398,261,879,522,5216,13041,1759,17589,43973
+rq1_hic_bv,"primary 10+, boost 60+ yearly",NA,675570,318,2116,468,319,1444,639,6385,15963,2887,28871,72176
+rq1_hic_bv,"primary 10+, boost 60+ 6 monthly",NA,1125950,389,2478,558,454,2018,909,9088,22719,4036,40357,100892
+rq1_hic_bv,"primary 10+, boost 10+ yearly",NA,1337184,967,2918,590,458,2266,917,9165,22913,4533,45328,113321
+rq3_hic_bv,"primary 10+, boost 75+ yearly",NA,210015,105,1458,414,144,507,288,2881,7202,1015,10146,25364
+rq3_hic_bv,"primary 10+, boost 75+ 6 monthly",NA,350025,123,1589,483,220,725,441,4406,11014,1449,14494,36234
+rq3_hic_bv,"primary 10+, boost 60+ yearly",NA,675570,313,2508,586,269,1153,539,5387,13468,2306,23057,57642
+rq3_hic_bv,"primary 10+, boost 60+ 6 monthly",NA,1125950,403,2898,696,389,1618,777,7771,19426,3235,32355,80887
+rq3_hic_bv,"primary 10+, boost 10+ yearly",NA,1337184,1038,3520,725,380,1844,760,7598,18994,3689,36888,92220

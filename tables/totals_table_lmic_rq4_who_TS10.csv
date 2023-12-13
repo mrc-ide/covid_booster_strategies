@@ -1,5 +1,5 @@
 name,strategy_name,total_doses_med,infections,hospitalisations,deaths
-rq4_lmic_who,"primary 10+, 3 doses only",1850710,2592,2116,370
-rq4_lmic_who,"primary 10+, boost 60+ yearly",1949736,2498,1870,320
-rq4_lmic_who,"primary 10+, boost 40+ yearly",2168350,2317,1738,298
-rq4_lmic_who,"primary 10+, boost 10+ yearly",2683164,1850,1452,254
+rq4_lmic_who,"primary 10+, 3 doses only",1850710,5111,3917,688
+rq4_lmic_who,"primary 10+, boost 60+ yearly",1949736,5020,3592,614
+rq4_lmic_who,"primary 10+, boost 40+ yearly",2168350,4826,3410,592
+rq4_lmic_who,"primary 10+, boost 10+ yearly",2683164,4301,3180,546

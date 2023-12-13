@@ -1,0 +1,9 @@
+name,strategy_name,variant_scenario,total_doses_med,infections,hospitalisations,deaths
+rq1_hic_newvariant,"primary 10+, boost 60+ yearly",no new variant,2690403,2220,3678,676
+rq1_hic_newvariant,"primary 10+, boost 60+ yearly",increased severity,2690403,2441,6614,1605
+rq1_hic_newvariant,"primary 10+, boost 60+ yearly",additional immune escape,2690403,2810,4692,856
+rq1_hic_newvariant,"primary 10+, boost 60+ yearly",increased severity and immune escape,2690403,2810,8776,2236
+rq3_hic_newvariant,"primary 10+, boost 60+ yearly",no new variant,2690403,4776,9872,1796
+rq3_hic_newvariant,"primary 10+, boost 60+ yearly",increased severity,2690403,4787,15180,3586
+rq3_hic_newvariant,"primary 10+, boost 60+ yearly",additional immune escape,2690403,5384,11414,2125
+rq3_hic_newvariant,"primary 10+, boost 60+ yearly",increased severity and immune escape,2690403,5325,19583,4998
