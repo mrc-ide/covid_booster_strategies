@@ -54,18 +54,15 @@ get_prob_non_severe_death_treatment <- function(income_group, hs_constraints){
 }
 
 get_vaccine_pars <- function(
-  vaccine,
   income_group,
   mu_ab_d1,
   mu_ab_d2,
   vaccine_doses,
-  dose_3_fold_increase,
-  dose_4_fold_increase,
   ab_50,
   ab_50_severe,
   std10 = 0.44,
   k,
-  t_d2 = 28,
+  t_d2,
   t_d3,
   t_d4,
   t_d5,
@@ -78,50 +75,31 @@ get_vaccine_pars <- function(
   period_s,
   period_l,
   max_ab = 5,
-  vfr,
-  omicron_vaccine = 0,
-  variant_specific = 0,
-  vaccine_vfr = 1,
-  vfr_final,
-  days_to_vacc_start
+  vfr2,
+  immune_escape = 0,
+  matched_vacc = 0,
+  matched_vacc_level = 0
 ){
   # if implementing bivalent vaccine, start from 4th dose by reversing out impact of vfr (but retaining higher immunogenicity of 4th dose)
   
-  if (omicron_vaccine == 1){  dose_4_fold_increase <- dose_4_fold_increase * vaccine_vfr}
-  
-  mu_ab_list <- data.frame(name = vaccine,
+  if (immune_escape == 1){
+    if (matched_vacc == 1){
+      mu_ab_d1 <- mu_ab_d1 * matched_vacc_level * vfr2
+      mu_ab_d2 <- mu_ab_d2 * matched_vacc_level * vfr2
+    } 
+  }
+   
+  mu_ab_list <- data.frame(name = "Moderna",
                            mu_ab_d1 = mu_ab_d1,
                            mu_ab_d2 = mu_ab_d2) %>%
-    mutate(mu_ab_d3 = mu_ab_d2 * dose_3_fold_increase) %>%
-    mutate(mu_ab_d4 = mu_ab_d3 * dose_4_fold_increase) %>%
+    mutate(mu_ab_d3 = mu_ab_d2) %>%
+    mutate(mu_ab_d4 = mu_ab_d3) %>%
     mutate(mu_ab_d5 = mu_ab_d4) %>%
     mutate(mu_ab_d6 = mu_ab_d4) %>%
     mutate(mu_ab_d7 = mu_ab_d4) %>%
     mutate(mu_ab_d8 = mu_ab_d4) %>%
     mutate(mu_ab_d9 = mu_ab_d4)
     
-
-  # if continuing to strain-match vaccines each year
-if (variant_specific == 1){
-  time_to_d3 <- days_to_vacc_start + t_d2 +t_d3 
-  time_to_d4 <- time_to_d3 + t_d4
-  time_to_d5 <- time_to_d4 + t_d5
-  time_to_d6 <- time_to_d5 + t_d6
-  time_to_d7 <- time_to_d6 + t_d7
-  time_to_d8 <- time_to_d7 + t_d8
-  time_to_d9 <- time_to_d8 + t_d9
-  
-  mu_ab_list <- data.frame(name = vaccine,
-                           mu_ab_d1 = mu_ab_d1,
-                           mu_ab_d2 = mu_ab_d2) %>%
-    mutate(mu_ab_d3 = mu_ab_d2 * dose_3_fold_increase) %>%
-    mutate(mu_ab_d4 = mu_ab_d3 * dose_4_fold_increase) %>%
-    mutate(mu_ab_d5 = mu_ab_d4 * vfr_final[(time_to_d5-365)]) %>%
-    mutate(mu_ab_d6 = mu_ab_d4 * vfr_final[(time_to_d6-365)]) %>%
-    mutate(mu_ab_d7 = mu_ab_d4 * vfr_final[(time_to_d7-365)]) %>%
-    mutate(mu_ab_d8 = mu_ab_d4 * vfr_final[(time_to_d8-365)]) %>%
-    mutate(mu_ab_d9 = mu_ab_d4 * vfr_final[(time_to_d9-365)])
-}
   
   if(is.na(mu_ab_list$mu_ab_d6)){mu_ab_list$mu_ab_d6 <- mu_ab_list$mu_ab_d5}
   if(is.na(mu_ab_list$mu_ab_d7)){mu_ab_list$mu_ab_d7 <- mu_ab_list$mu_ab_d6}
@@ -130,9 +108,17 @@ if (variant_specific == 1){
   
   
   ab_parameters <- safir::get_vaccine_ab_titre_parameters(
-    vaccine = vaccine, max_dose = vaccine_doses, correlated = TRUE,
-    hl_s = hl_s, hl_l = hl_l, period_s = period_s, t_period_l = period_l,
-    ab_50 = ab_50, ab_50_severe = ab_50_severe, std10 = std10, k = k,
+    vaccine = "Moderna",
+    max_dose = vaccine_doses,
+    correlated = FALSE,
+    hl_s = hl_s,
+    hl_l = hl_l,
+    period_s = period_s,
+    t_period_l = period_l,
+    ab_50 = ab_50,
+    ab_50_severe = ab_50_severe,
+    std10 = std10,
+    k = k,
     mu_ab_list = mu_ab_list
   )
   

@@ -2,7 +2,6 @@
 # Authors: AB Hogan, SL Wu, AC Ghani, P Doohan, P Winskill, OJ Watson, and others
 # Date updated: June 2023
 
-library(rstudioapi)
 library(safir)
 library(squire)
 library(nimue)
@@ -17,8 +16,6 @@ library(patchwork)
 library(tidyverse)
 library(purrr)
 library(drjacoby)
-
-setwd(dirname(getActiveDocumentContext()$path)) 
 
 source("R/plotting_utils.R")
 source("R/utils.R")

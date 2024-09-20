@@ -69,6 +69,20 @@ rq1_inc <- ggplot(data = df1, aes(x = as.Date(date), y = inc_t/target_pop * 1e6,
   
 rq1_inc
 
+rq1_prev <- ggplot(data = df1, aes(x = as.Date(date), y = inc_t/target_pop * 10 * 100, col = strategy_name)) +
+  geom_line() +
+  theme_bw() +
+  theme(strip.background = element_rect(fill = NA),
+        panel.border = element_blank(),
+        axis.line = element_line(),
+        legend.text.align = 0) +
+  scale_color_manual(values = c("grey20", colset)) +
+  scale_fill_manual(values = c("grey20", colset)) +
+  lims(x = c(as.Date("2020-01-01"), as.Date("2024-12-31"))) +
+  labs(x = "Time", y = "prevalence (%)", col = "dose strategy", fill = "dose strategy")
+
+rq1_prev
+
 ####################################################
 # summary plots
 df_summarydat <- df_summarise_totals %>%
